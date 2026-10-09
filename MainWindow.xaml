@@ -7,6 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <ComboBox x:Name="RequestTypeCBox" HorizontalAlignment="Left" Margin="127,165,0,0" VerticalAlignment="Top" Width="90" Height="27">
+            <ComboBoxItem>GET</ComboBoxItem>
+            <ComboBoxItem>POST</ComboBoxItem>
+            <ComboBoxItem>PUT</ComboBoxItem>
+            <ComboBoxItem>PATCH</ComboBoxItem>
+            <ComboBoxItem>DELETE</ComboBoxItem>
+        </ComboBox>
+        <TextBox x:Name="RequestUrlTBox" HorizontalAlignment="Center" Margin="0,165,0,0" TextWrapping="Wrap" Text="{Binding ReqUri}" VerticalAlignment="Top" Width="330" Height="27"/>
+        <Button x:Name="SendRequestBtn" Content="Button" HorizontalAlignment="Center" Height="36" Margin="0,217,0,0" VerticalAlignment="Top" Width="132"/>
 
     </Grid>
 </Window>
