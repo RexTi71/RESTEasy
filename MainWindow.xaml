@@ -5,17 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:API_Tester"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <ComboBox x:Name="RequestTypeCBox" HorizontalAlignment="Left" Margin="127,165,0,0" VerticalAlignment="Top" Width="90" Height="27">
-            <ComboBoxItem>GET</ComboBoxItem>
-            <ComboBoxItem>POST</ComboBoxItem>
-            <ComboBoxItem>PUT</ComboBoxItem>
-            <ComboBoxItem>PATCH</ComboBoxItem>
-            <ComboBoxItem>DELETE</ComboBoxItem>
-        </ComboBox>
-        <TextBox x:Name="RequestUrlTBox" HorizontalAlignment="Center" Margin="0,165,0,0" TextWrapping="Wrap" Text="{Binding ReqUri}" VerticalAlignment="Top" Width="330" Height="27"/>
-        <Button x:Name="SendRequestBtn" Content="Button" HorizontalAlignment="Center" Height="36" Margin="0,217,0,0" VerticalAlignment="Top" Width="132"/>
+        Title="API Tester" Height="450" Width="800">
 
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <WrapPanel HorizontalAlignment="Center">
+                <ComboBox x:Name="RequestTypeCBox" ItemsSource="{Binding RequestTypes}" SelectedItem="{Binding SelectedReqType}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Height="27" SelectedIndex="0">
+                </ComboBox>
+                <TextBox x:Name="RequestUrlTBox" HorizontalAlignment="Center" Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding ReqUrl}" VerticalAlignment="Top" Width="330" Height="27"/>
+            </WrapPanel>
+            <Button x:Name="SendRequestBtn" Content="Button" HorizontalAlignment="Center" Margin="0,10,0,0" Height="36" VerticalAlignment="Top" Width="132" Command="{Binding SendRequestCommand}"/>
+        </StackPanel>
+        <TextBlock Grid.Row="1" Text="{Binding ResponseBody}" Background="Gray" Foreground="Wheat" MinHeight="125" MaxHeight="225" Width="800">
+
+        </TextBlock>
     </Grid>
 </Window>

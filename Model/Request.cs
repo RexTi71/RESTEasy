@@ -1,4 +1,5 @@
-﻿using System;
+﻿using API_Tester.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -15,6 +16,6 @@ namespace API_Tester.Model
     internal class Request
     {
         public RequestType Type { get; set; }
-        public string Uri { get; set; }
+        public string Url { get; set;}
     }
 }

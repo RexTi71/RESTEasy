@@ -9,16 +9,25 @@ namespace API_Tester.Services
     internal class SendRequestService
     {
         private static readonly HttpClient _client = new HttpClient();
-        private Request _request;
 
-        public SendRequestService(Request request)
+        public async Task<HttpResponseMessage> SendRequest(Request request)
         {
-            this._request = request;
-        }
-
-        public async Task<string> SendRequest()
-        {
-            return await _client.GetStringAsync(_request.Uri);
+            try
+            {
+                switch (request.Type)
+                {
+                    case RequestType.GET:
+                        return await _client.GetAsync(request.Url);
+                    case RequestType.DELETE:
+                        return await _client.DeleteAsync(request.Url);
+                    default:
+                        return new HttpResponseMessage(System.Net.HttpStatusCode.NotFound);
+                }
+                
+            }catch(InvalidOperationException ex)
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.Forbidden);
+            }
         }
     }
 }
