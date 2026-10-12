@@ -29,5 +29,27 @@ namespace API_Tester.Services
                 return new HttpResponseMessage(System.Net.HttpStatusCode.Forbidden);
             }
         }
+        public async Task<HttpResponseMessage> SendRequest(Request request, Payload payload)
+        {
+            var content = payload.GetContent();
+            try
+            {
+                switch(request.Type)
+                {
+                    case RequestType.POST:
+                        return await _client.PostAsync(request.Url, content);
+                    case RequestType.PUT:
+                        return await _client.PutAsync(request.Url, content);
+                    case RequestType.PATCH:
+                        return await _client.PatchAsync(request.Url, content);
+                    default:
+                        return new HttpResponseMessage(System.Net.HttpStatusCode.NotFound);
+                }
+            }
+            catch(InvalidOperationException ex)
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.Forbidden);
+            }
+        }
     }
 }

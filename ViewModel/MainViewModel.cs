@@ -6,7 +6,9 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -20,6 +22,8 @@ namespace API_Tester.ViewModel
         private string? responseBody;
         [ObservableProperty]
         private RequestType selectedReqType = RequestType.GET;
+        [ObservableProperty]
+        private string? reqPayload;
         public Array RequestTypes => Enum.GetValues(typeof(RequestType));
         public string ReqUrl
         {
@@ -30,21 +34,42 @@ namespace API_Tester.ViewModel
             }
         }
 
+        private async void SetResponse(HttpResponseMessage response)
+        {
+            try
+            {
+                ResponseBody = JSONPayload.PrettyJson(await response.Content.ReadAsStringAsync());
+            }
+            catch (JsonException)
+            {
+                ResponseBody = await response.Content.ReadAsStringAsync();
+            }
+            Trace.WriteLine($"Typ: {_request.Type}\nUrl: {_request.Url}");
 
+        }
         [RelayCommand]
         public async Task SendRequestAsync()
         {
+            HttpResponseMessage response;
             _request.Type = SelectedReqType;
             if (!UrlValidator.IsUrlValid(ReqUrl))
             {
                 MessageBox.Show("Provided url can't be empty","Empty url" , MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            _request.Url = ReqUrl;
-            var response = await _reqService.SendRequest(_request);
-            ResponseBody = await response.Content.ReadAsStringAsync();
             
-            Trace.WriteLine($"Typ: {_request.Type}\nUrl: {_request.Url}");
+            _request.Url = ReqUrl;
+
+            if (!String.IsNullOrEmpty(ReqPayload))
+            {
+                response = await _reqService.SendRequest(_request, Payload.Create(ReqPayload));
+            }
+            else
+            {
+                response = await _reqService.SendRequest(_request);
+            }
+
+            SetResponse(response);
         }
         public MainViewModel()
         {

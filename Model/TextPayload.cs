@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Text;
+
+namespace API_Tester.Model
+{
+    internal class TextPayload : Payload
+    {
+        public TextPayload(string data) : base(data) { }
+
+        public override StringContent GetContent()
+        {
+            return new StringContent(data, Encoding.UTF8, "text/plain");
+        }
+    }
+}
