@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <FontFamily x:Key="GoogleSansFont">
+        ../Fonts/#Google Sans
+    </FontFamily>
+    <Color x:Key="Dark-Amethyst">#10002B</Color>
+    <Color x:Key="Slight-Dark-Amethyst">#240046</Color>
+    <Color x:Key="Indigo-Ink">#3C096C</Color>
+    <Color x:Key="Lavender-Purple">#9d4edd</Color>
+    <Color x:Key="Mauve">#E0AAFF</Color>
+    <SolidColorBrush x:Key="Dark-Amethyst-Brush" Color="{StaticResource Dark-Amethyst}"/>
+    <SolidColorBrush x:Key="Slight-Dark-Amethyst-Brush" Color="{StaticResource Slight-Dark-Amethyst}"/>
+    <SolidColorBrush x:Key="Mauve-Brush" Color="{StaticResource Mauve}"/>
+</ResourceDictionary>
