@@ -10,5 +10,6 @@
     <Color x:Key="Mauve">#E0AAFF</Color>
     <SolidColorBrush x:Key="Dark-Amethyst-Brush" Color="{StaticResource Dark-Amethyst}"/>
     <SolidColorBrush x:Key="Slight-Dark-Amethyst-Brush" Color="{StaticResource Slight-Dark-Amethyst}"/>
+    <SolidColorBrush x:Key="Indigo-Ink-Brush" Color="{StaticResource Indigo-Ink}"/>
     <SolidColorBrush x:Key="Mauve-Brush" Color="{StaticResource Mauve}"/>
 </ResourceDictionary>

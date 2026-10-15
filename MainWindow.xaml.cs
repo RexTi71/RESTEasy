@@ -22,6 +22,30 @@ namespace API_Tester
         {
             InitializeComponent();
             this.DataContext = new MainViewModel();
+
+        }
+
+        private void Close_Window_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+        private void Maximize_Window_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized) {
+                this.WindowState = WindowState.Normal;
+                return;
+            }
+            this.WindowState = WindowState.Maximized;
+        }
+
+        private void Minimize_Window_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void TopBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }

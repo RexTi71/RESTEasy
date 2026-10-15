@@ -19,6 +19,9 @@ namespace API_Tester.Model
             if (trimmed.StartsWith("{") || trimmed.StartsWith("["))
             {
                 return new JSONPayload(data);
+            }else if (trimmed.StartsWith("<"))
+            {
+                return new XMLPayload(data);
             }
             else
             {

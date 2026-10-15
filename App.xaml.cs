@@ -10,12 +10,6 @@ namespace API_Tester
     /// </summary>
     public partial class App : Application
     {
-        //Might be useless
-        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
-        {
-            MessageBox.Show(e.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            e.Handled = true;
-        }
     }
 
 }
