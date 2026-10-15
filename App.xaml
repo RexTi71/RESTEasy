@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="/Styles/ComboBox.xaml"/>
                 <ResourceDictionary Source="/Styles/ModernBttn.xaml"/>
                 <ResourceDictionary Source="/Styles/ModernTextBox.xaml"/>
+                <ResourceDictionary Source="/Styles/ModernTxtBlock.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

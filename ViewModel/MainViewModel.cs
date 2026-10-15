@@ -24,6 +24,12 @@ namespace API_Tester.ViewModel
         private RequestType selectedReqType = RequestType.GET;
         [ObservableProperty]
         private string? reqPayload;
+        [ObservableProperty]
+        private string statusCodeText = String.Empty;
+        [ObservableProperty]
+        private string responseTimeText = String.Empty;
+        [ObservableProperty]
+        private Visibility additionalInfoVisibility = Visibility.Hidden;
         public Array RequestTypes => Enum.GetValues(typeof(RequestType));
         public string ReqUrl
         {
@@ -36,6 +42,12 @@ namespace API_Tester.ViewModel
 
         private async void SetResponse(HttpResponseMessage response)
         {
+            //Used to get actual response code and not
+            //"OK" or "UNATHORIZED"
+            StatusCodeText = Convert.ToString((int)response.StatusCode);
+            ResponseTimeText = $"{_reqService.ResponseTime.ToString()} ms";
+            AdditionalInfoVisibility = Visibility.Visible;
+
             try
             {
                 ResponseBody = JSONPayload.PrettyJson(await response.Content.ReadAsStringAsync());
@@ -60,15 +72,7 @@ namespace API_Tester.ViewModel
             
             _request.Url = ReqUrl;
 
-            if (!String.IsNullOrEmpty(ReqPayload))
-            {
-                response = await _reqService.SendRequest(_request, Payload.Create(ReqPayload));
-            }
-            else
-            {
-                response = await _reqService.SendRequest(_request);
-            }
-
+            response = await _reqService.SendRequest(_request, Payload.Create(ReqPayload));
             SetResponse(response);
         }
         public MainViewModel()

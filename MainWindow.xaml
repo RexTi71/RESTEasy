@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowStyle="SingleBorderWindow"
         AllowsTransparency="False"
-        Title="API Tester" Height="900" Width="1600" Background="{DynamicResource Dark-Amethyst-Brush}">
+        Title="RESTEasy" Height="900" Width="1600" Background="{DynamicResource Dark-Amethyst-Brush}">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="32"
                       ResizeBorderThickness="5"
@@ -20,6 +20,7 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="3*"/>
+            <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <Grid x:Name="TopBar"
               Grid.Row="0"
@@ -63,7 +64,9 @@
                       FontFamily="{DynamicResource GoogleSansFont}"
                       SelectedItem="{Binding SelectedReqType}"
                       Width="90"
-                      Height="27" Foreground="{DynamicResource Mauve-Brush}">
+                      Height="27"
+                      FontSize="16"
+                      Foreground="{DynamicResource Mauve-Brush}">
             </ComboBox>
             <TextBox x:Name="RequestUrlTBox"
                      Style="{DynamicResource ModernTextBox}"
@@ -80,7 +83,7 @@
             <Button x:Name="SendRequestBtn"
                     Content="Send"
                     Style="{DynamicResource ModernBttn}"
-                    FontSize="20"
+                    FontSize="16"
                     HorizontalAlignment="Center"
                     Margin="10,0,0,0"
                     Height="27"
@@ -88,17 +91,46 @@
                     Width="132"
                     Command="{Binding SendRequestCommand}"/>
         </WrapPanel>
-        <TextBox Text="{Binding ReqPayload}"
-                 Grid.Row="2"
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="125"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Text="{Binding ReqPayload}"
+                 Grid.Column="0"
                  Style="{DynamicResource ModernTextBox}"
                  FontFamily="Courier New"
                  TextWrapping="Wrap"
                  AcceptsReturn="True"
                  Background="Transparent"
                  Foreground="{DynamicResource Mauve-Brush}"
-                 VerticalScrollBarVisibility="Hidden" Padding="10,10,0,0" BorderBrush="#FF240046" BorderThickness="0,2,0,2"/>
-        <TextBox Grid.Row="3"
-                   Text="{Binding ResponseBody}"
+                 VerticalScrollBarVisibility="Hidden" Padding="10,10,0,0" BorderBrush="#FF240046" BorderThickness="0,2,0,2" Grid.ColumnSpan="2"/>
+            <Label x:Name="BodyLabel" 
+                   Grid.Column="1"
+                   Content="Body"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   FontFamily="{DynamicResource GoogleSansFont}"
+                   FontSize="88"
+                   FontWeight="Bold"
+                   Width="408"
+                   Opacity="0.25"
+                   Height="161"
+                   Background="#00000000"
+                   Foreground="#FF3C096C"
+                   Margin="0,30,15,0">
+                <Label.LayoutTransform>
+                    <RotateTransform Angle="90"/>
+                </Label.LayoutTransform>
+            </Label>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="125"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Text="{Binding ResponseBody}"
+                   Grid.Column="0"
                    IsReadOnly="True"
                    TextWrapping="Wrap"
                    FontFamily="Courier New"
@@ -108,25 +140,48 @@
                    MinHeight="125"
                    MaxHeight="450"
                    Width="1600" ScrollViewer.CanContentScroll="True"/>
-        <Label x:Name="BodyLabel" Content="Body" HorizontalAlignment="Left" Margin="1298,139,0,0" Grid.Row="2" VerticalAlignment="Top" FontFamily="{DynamicResource GoogleSansFont}" FontSize="88" RenderTransformOrigin="0.5,0.5" FontWeight="Bold" Width="408" Opacity="0.25" Height="161" Grid.RowSpan="2" Background="#00000000" Foreground="#FF3C096C">
-            <Label.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
+
+            <Label x:Name="RespLabel"
+                   Grid.Column="1"
+                   Content="Resp"
+                   HorizontalAlignment="Center"
+                   Margin="0,30,15,0"
+                   Grid.Row="3" VerticalAlignment="Top" Foreground="#FF3C096C" FontFamily="{DynamicResource GoogleSansFont}" FontSize="88" FontWeight="Bold" Width="382" Opacity="0.25" Height="161">
+                <Label.LayoutTransform>
                     <RotateTransform Angle="90"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Label.RenderTransform>
-        </Label>
-        <Label x:Name="BodyLabel_Kopiuj" Content="Resp" HorizontalAlignment="Left" Margin="1298,108,0,0" Grid.Row="3" VerticalAlignment="Top" Foreground="#FF3C096C" FontFamily="{DynamicResource GoogleSansFont}" FontSize="88" RenderTransformOrigin="0.5,0.5" FontWeight="Bold" Width="382" Opacity="0.25" Height="161">
-            <Label.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="90"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Label.RenderTransform>
-        </Label>
+                </Label.LayoutTransform>
+            </Label>
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.25*" MinWidth="{Binding Path=ActualWidth, ElementName=StatusCodeText }"/>
+                <ColumnDefinition Width="0.25*" MinWidth="{Binding Path=ActualWidth, ElementName=ResponseTimeText }"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="StatusCodeText"
+                       Style="{DynamicResource ModernTxtBlock}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Foreground="{DynamicResource Mauve-Brush}"
+                       Background="{DynamicResource Indigo-Ink-Brush}"
+                       FontFamily="{DynamicResource GoogleSansFont}"
+                       FontSize="16"
+                       Content="{Binding StatusCodeText}"
+                       Visibility="{Binding AdditionalInfoVisibility}"
+                       Padding="4"
+                       Grid.Column="0"></Label>
+            <Label x:Name="ResponseTimeText"
+                       Style="{DynamicResource ModernTxtBlock}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Foreground="{DynamicResource Mauve-Brush}"
+                       Background="{DynamicResource Indigo-Ink-Brush}"
+                       FontFamily="{DynamicResource GoogleSansFont}"
+                       Padding="4"
+                       FontSize="16"
+                       Visibility="{Binding AdditionalInfoVisibility}"
+                       Content="{Binding ResponseTimeText}"
+                       Grid.Column="1"></Label>
+        </Grid>
     </Grid>
 </Window>

@@ -8,12 +8,17 @@ namespace API_Tester.Model
     public abstract class Payload
     {
         protected string data;
-        public Payload(string data)
+        protected Payload(string data)
         {
             this.data = data;
         }
         public abstract StringContent GetContent();
-        public static Payload Create(string data) {
+        public static Payload Create(string? data) {
+            if(data == null)
+            {
+                return new EmptyPayload();
+            }
+
             string trimmed = data.TrimStart();
 
             if (trimmed.StartsWith("{") || trimmed.StartsWith("["))
