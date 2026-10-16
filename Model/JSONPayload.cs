@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace API_Tester.Model
 {
-    internal class JSONPayload : Payload
+    public class JSONPayload : Payload
     {
         public JSONPayload(string data) : base(data){}
         public override StringContent GetContent()

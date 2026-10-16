@@ -13,7 +13,7 @@ namespace API_Tester.Model
         PUT,
         PATCH
     }
-    internal class Request
+    public class Request
     {
         public RequestType Type { get; set; }
         public string Url { get; set;}

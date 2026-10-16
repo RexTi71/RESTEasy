@@ -7,21 +7,21 @@ using System.Text;
 
 namespace API_Tester.Services
 {
-    internal class SendRequestService
+    public class SendRequestService
     {
-        private static readonly HttpClient _client = new HttpClient();
-        private readonly Stopwatch _stopwatch;
+        private readonly HttpClient _client;
         private long _responseTime;
         public long ResponseTime {
             get => _responseTime;
          }
-        public SendRequestService()
+        public SendRequestService(HttpClient client)
         {
-            _stopwatch = new Stopwatch();
+            _client = client;
+            
         }
         public async Task<HttpResponseMessage> SendRequest(Request request, Payload payload)
         {
-            _stopwatch.Start();
+            Stopwatch stopwatch = Stopwatch.StartNew();
             var content = payload.GetContent();
             try
             {
@@ -38,18 +38,17 @@ namespace API_Tester.Services
                     case RequestType.DELETE:
                         return await _client.DeleteAsync(request.Url);
                     default:
-                        return new HttpResponseMessage(System.Net.HttpStatusCode.NotFound);
+                        return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
                 }
                 
             }catch(Exception ex)
             {
-                var errMsg = new HttpResponseMessage(System.Net.HttpStatusCode.NotFound);
+                var errMsg = new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
                 errMsg.Content = new StringContent(ex.Message, Encoding.UTF8,"text/plain");
                 return errMsg;
             }finally { 
-                _stopwatch.Stop();
-                _responseTime = _stopwatch.ElapsedMilliseconds;
-                _stopwatch.Reset();
+                stopwatch.Stop();
+                _responseTime = stopwatch.ElapsedMilliseconds;
             }
         }
     }

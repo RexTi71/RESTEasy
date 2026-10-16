@@ -5,7 +5,7 @@ using System.Text;
 
 namespace API_Tester.Model
 {
-    class XMLPayload : Payload
+    public class XMLPayload : Payload
     {
         public XMLPayload(string data) : base(data) { }
         public override StringContent GetContent()

@@ -66,7 +66,7 @@ namespace API_Tester.ViewModel
             _request.Type = SelectedReqType;
             if (!UrlValidator.IsUrlValid(ReqUrl))
             {
-                MessageBox.Show("Provided url can't be empty","Empty url" , MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Provided url is not valid","Invalid url" , MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             
@@ -78,7 +78,7 @@ namespace API_Tester.ViewModel
         public MainViewModel()
         {
             _request = new Request();
-            _reqService = new SendRequestService();
+            _reqService = new SendRequestService(App.HttpClient);
         }
     }
 }

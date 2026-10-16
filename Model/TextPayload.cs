@@ -5,7 +5,7 @@ using System.Text;
 
 namespace API_Tester.Model
 {
-    internal class TextPayload : Payload
+    public class TextPayload : Payload
     {
         public TextPayload(string data) : base(data) { }
 

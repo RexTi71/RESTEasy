@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace API_Tester.Services
 {
-    internal class UrlValidator
+    public static class UrlValidator
     {
         public static bool IsUrlValid(string url)
         {
-            return !String.IsNullOrWhiteSpace(url);
+            return Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out Uri? _)
+            && !String.IsNullOrWhiteSpace(url);
         }
     }
 }
