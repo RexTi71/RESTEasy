@@ -1,5 +1,4 @@
-﻿using API_Tester.Exceptions;
-using API_Tester.Model;
+﻿using API_Tester.Model;
 using API_Tester.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
